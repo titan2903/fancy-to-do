@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
+const Todos = require('./router/todos');
 
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-    res.send('adpapdaspdp')
-})
+
+app.use('/todos', Todos)
+
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`)

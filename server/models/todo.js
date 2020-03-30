@@ -9,7 +9,17 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    due_date: DataTypes.DATE,
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        customValidator(value) {
+          let date = new Date()
+          if (value < date.getTime) {
+            throw new Error(`The Date must be Bigger or Equal Today Date`)
+          }
+        }
+      }
+    },
     UserId: DataTypes.INTEGER
   }, { sequelize })
 
