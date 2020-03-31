@@ -80,7 +80,7 @@ class Todos {
             where: { id: id }
         })
             .then((todos) => {
-                if (todos) {
+                if (todos[0] === 1) {
                     res.status(200).json({ todos })
                 } else {
                     res.status(404).json({ message: `todo not found` })
