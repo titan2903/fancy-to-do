@@ -31,12 +31,13 @@ class Todos {
 
     static createTodo(req, res) {
         const { title, description, status, due_date } = req.body
+        console.log(req.userdata, 'ini useerdata')
         Todo.create({
             title,
             description,
             status,
             due_date,
-            UserId: req.params.id
+            UserId: req.userdata.id
         })
             .then((todos) => {
                 console.log(todos, 'result from create')
@@ -67,23 +68,15 @@ class Todos {
             });
     }
 
+
     static updateTodo(req, res) {
-        let id = Number(req.params.id)
-        const { title, description, status, due_date } = req.body
-        Todo.update({
-            title,
-            description,
-            status,
-            due_date,
-            UserId: req.params.id
-        }, {
-            where: { id: id }
-        })
-            .then((todos) => {
-                if (todos[0] === 1) {
-                    res.status(200).json({ todos })
+        let id = req.params.id
+        Todo.update(req.body, { where: { id: id } })
+            .then((result) => {
+                if (result[0] === 1) {
+                    res.status(200).json('result has been update')
                 } else {
-                    res.status(404).json({ message: `todo not found` })
+                    res.status(404).json('result not found')
                 }
             }).catch((err) => {
                 res.status(500).json({ err })
