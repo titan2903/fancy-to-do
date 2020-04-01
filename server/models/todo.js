@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { message: `please input data type string` }
+        notEmpty: { notEmpty: true, message: `please input data type string` }
       }
     },
     description: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { message: `please input data type string` }
+        notEmpty: { notEmpty: true, message: `please input data type string` }
       }
     },
     status: DataTypes.BOOLEAN,

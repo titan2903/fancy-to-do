@@ -7,9 +7,19 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model { }
 
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    username: {
+      type: DataTypes.STRING,
+      validate: { notEmpty: true }
+    },
+    password: {
+      type: Sequelize.STRING,
+      validate: { notEmpty: true }
+    },
+    role: DataTypes.STRING,
+    email: {
+      type: Sequelize.STRING,
+      validate: { notEmpty: true }
+    }
   }, {
     hooks: {
       beforeCreate(instance, options) {

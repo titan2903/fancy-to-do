@@ -5,11 +5,11 @@ class Todos {
     static getTodos(req, res) {
         Todo.findAll()
             .then((todos) => {
-                console.log(todos, 'data todo')
+                // console.log(todos, 'data todo')
                 res.status(200).json({ todos })
             }).catch((err) => {
                 console.log(err, 'data err')
-                res.status(500).json({ err })
+                res.status(500).json({ message: `internal server error` })
             });
     }
 
@@ -25,13 +25,13 @@ class Todos {
                     })
                 }
             }).catch((err) => {
-                res.status(404).json({ err })
+                res.status(500).json({ message: `internal server error` })
             });
     }
 
     static createTodo(req, res) {
         const { title, description, status, due_date } = req.body
-        console.log(req.userdata, 'ini useerdata')
+        // console.log(req.userdata, 'ini useerdata')
         Todo.create({
             title,
             description,
@@ -43,7 +43,7 @@ class Todos {
                 console.log(todos, 'result from create')
                 res.status(201).json({ todos })
             }).catch((err) => {
-                res.status(500).json({ err })
+                res.status(500).json({ message: `internal server error` })
             });
     }
 
@@ -64,7 +64,7 @@ class Todos {
             }).then(() => {
                 res.status(200).json({ todoDeleted })
             }).catch((err) => {
-                res.status(500).json({ err })
+                res.status(500).json({ message: `internal server error` })
             });
     }
 
@@ -79,7 +79,7 @@ class Todos {
                     res.status(404).json('result not found')
                 }
             }).catch((err) => {
-                res.status(500).json({ err })
+                res.status(500).json({ message: `internal server error` })
             });
     }
 }

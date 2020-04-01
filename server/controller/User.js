@@ -27,18 +27,18 @@ class Users {
             .then((result) => {
                 if (result) {
                     // console.log(result, 'titan')
-                    console.log(req.body.password);
-                    console.log(result.password)
+                    // console.log(req.body.password);
+                    // console.log(result.password)
                     if (bcrypt.compareSync(req.body.password, result.password)) {
                         console.log('masuk token');
 
                         let token = jwt.sign({ id: result.id, username: result.username, role: result.role }, 'rahasia')
-                        console.log(token);
+                        // console.log(token);
 
                         res.status(200).json({ token: token })
                     }
                 } else {
-                    res.status(400).json('password wrong')
+                    res.status(400).json({ message: 'password wrong' })
                 }
             }).catch((err) => {
                 console.log(`error login`)
