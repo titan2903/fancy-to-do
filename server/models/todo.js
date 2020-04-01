@@ -9,16 +9,21 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { notEmpty: true, message: `please input data type string` }
+        notEmpty: true
       }
     },
     description: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { notEmpty: true, message: `please input data type string` }
+        notEmpty: true
       }
     },
-    status: DataTypes.BOOLEAN,
+    status: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        notEmpty: true
+      }
+    },
     due_date: {
       type: DataTypes.DATE,
       validate: {
@@ -30,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    UserId: DataTypes.INTEGER
+    UserId: {
+      type: Sequelize.INTEGER,
+      validate: { notEmpty: true }
+    }
   }, { sequelize })
 
   // const Todo = sequelize.define('Todo', {
