@@ -3,6 +3,7 @@ const Todos = require('./todos');
 const Users = require('./user');
 
 router.use('/todos', Todos)
+
 router.use('/users', Users)
 
 

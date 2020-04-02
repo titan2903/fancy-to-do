@@ -8,9 +8,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-
 app.use(Todos)
-
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`)

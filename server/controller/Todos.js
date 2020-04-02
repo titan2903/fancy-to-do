@@ -13,7 +13,7 @@ class Todos {
             });
     }
 
-    static getTodo(req, res) {
+    static getOneTodo(req, res) {
         const id = req.params.id
         Todo.findOne({ where: { id: id } })
             .then((todos) => {
