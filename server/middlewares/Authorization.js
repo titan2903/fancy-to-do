@@ -6,9 +6,9 @@ function authorisation(req, res, next) {
     Todo.findOne({ where: { id: id } })
         .then((result) => {
             if (result) {
-                console.log(result.UserId)
-                console.log(req.userdata.id);
-                console.log(result);
+                // console.log(result.UserId)
+                // console.log(req.userdata.id);
+                // console.log(result);
 
                 if (result.UserId === req.userdata.id) {
                     next()

@@ -1,3 +1,4 @@
+const { OAuth2Client } = require('google-auth-library');
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -48,6 +49,10 @@ class Users {
             });
     }
 
+
+    static googleSignIn(req, res) {
+
+    }
 }
 
 
