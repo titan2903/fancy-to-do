@@ -3,7 +3,11 @@ const { Todo } = require('../models');
 
 class Todos {
     static getTodos(req, res) {
-        Todo.findAll()
+        Todo.findAll({
+            order: [
+                ['due_date', 'ASC']
+            ]
+        })
             .then((todos) => {
                 // console.log(todos, 'data todo')
                 res.status(200).json({ todos })

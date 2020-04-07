@@ -12,7 +12,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Users', 'email')
+    return queryInterface.removeColumn('Users', 'email')
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
