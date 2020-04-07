@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id"
+        content="298503916713-57acpt9mncu81po4sscfj4l2o0hv0f7i.apps.googleusercontent.com">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -15,9 +17,42 @@
 
 <body>
     <div id="contianer">
-        <h1></h1>
+        <h1 class="text-center">Home</h1>
     </div>
+    <br>
+    <hr>
 
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <a href="#" onclick="signOut();">Sign out</a>
+    <!-- Google sign in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            let id_token = googleUser.getAuthResponse().id_token;
+            const URL = 'http://localhost:3000/users/google-sign-in'
+            $.ajax({
+                method: 'POST',
+                url: `${URL}`,
+                data: {
+                    token: id_token
+                },
+                statusCode: {
+                    200: function (res) {
+                        // console.log('ini respon di index html ===>', res.access_token)
+                        localStorage.setItem('access_token', res.access_token)
+                    }
+                }
+            })
+        }
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                // console.log('=====>>> User signed out.');
+                localStorage.removeItem('access_token')
+            });
+        }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
