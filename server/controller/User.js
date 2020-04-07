@@ -1,4 +1,5 @@
 const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -33,7 +34,7 @@ class Users {
                     if (bcrypt.compareSync(req.body.password, result.password)) {
                         console.log('masuk token');
 
-                        let token = jwt.sign({ id: result.id, username: result.username, role: result.role }, 'rahasia')
+                        let token = jwt.sign({ id: result.id, username: result.username, role: result.role }, process.env.JWT_SECRET)
                         // console.log(token);
 
                         res.status(200).json({ token: token })
@@ -51,7 +52,46 @@ class Users {
 
 
     static googleSignIn(req, res) {
-
+        const token = req.body.token
+        const user = {}
+        client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+            .then((result) => {
+                const payload = result.getPayload();
+                // console.log(payload)
+                user.name = payload.name
+                user.email = payload.email
+                user.password = 'pass123word'
+                return User.findOne({
+                    where: {
+                        email: payload.email
+                    }
+                })
+            })
+            .then((userData) => {
+                if (userData) {
+                    return userData
+                } else {
+                    return User.create(user)
+                }
+            })
+            .then((newUser) => {
+                const userObj = {
+                    id: newUser.id,
+                    username: newUser.username,
+                    email: newUser.email,
+                }
+                res.status(200).json({
+                    access_token: jwt.sign(userObj, process.env.JWT_SECRET)
+                })
+            })
+            .catch((err) => {
+                res.status(500).json({
+                    message: 'error internal server'
+                })
+            });
     }
 }
 

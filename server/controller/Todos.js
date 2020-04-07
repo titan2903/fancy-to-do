@@ -12,7 +12,7 @@ class Todos {
                 // console.log(todos, 'data todo')
                 res.status(200).json({ todos })
             }).catch((err) => {
-                console.log(err, 'data err')
+                // console.log(err, 'data err')
                 res.status(500).json({ message: `internal server error` })
             });
     }
