@@ -70,9 +70,9 @@ class Users {
                     }
                 })
             })
-            .then((userData) => {
-                if (userData) {
-                    return userData
+            .then((userdata) => {
+                if (userdata) {
+                    return userdata
                 } else {
                     return User.create(user)
                 }
