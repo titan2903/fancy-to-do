@@ -8,7 +8,7 @@ class Users {
     static register(req, res, next) {
         const form = req.body
         User.create({
-            username: form.username,
+            email: form.email,
             password: form.password,
             role: "client"
         })
@@ -24,7 +24,7 @@ class Users {
     static login(req, res, next) {
         // console.log(req.body.username);
 
-        User.findOne({ where: { username: req.body.username } })
+        User.findOne({ where: { email: req.body.email } })
 
             .then((result) => {
                 if (result) {
@@ -32,9 +32,9 @@ class Users {
                     // console.log(req.body.password);
                     // console.log(result.password)
                     if (bcrypt.compareSync(req.body.password, result.password)) {
-                        console.log('masuk token');
+                        // console.log('masuk token');
 
-                        let token = jwt.sign({ id: result.id, username: result.username, role: result.role }, process.env.JWT_SECRET)
+                        let token = jwt.sign({ id: result.id, email: result.emai, role: result.rolel }, process.env.JWT_SECRET)
                         // console.log(token);
 
                         res.status(200).json({ token: token })
@@ -61,9 +61,9 @@ class Users {
             .then((result) => {
                 const payload = result.getPayload();
                 // console.log(payload)
-                user.name = payload.name
                 user.email = payload.email
                 user.password = 'pass123word'
+                user.role = 'client'
                 return User.findOne({
                     where: {
                         email: payload.email
@@ -80,8 +80,8 @@ class Users {
             .then((newUser) => {
                 const userObj = {
                     id: newUser.id,
-                    username: newUser.username,
                     email: newUser.email,
+                    role: newUser.role
                 }
                 res.status(200).json({
                     access_token: jwt.sign(userObj, process.env.JWT_SECRET)
