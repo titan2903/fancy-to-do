@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Users = require('../controller/User');
 
 //!register
-router.post('/', Users.register)
+router.post('/register', Users.register)
 
 //!login
 router.post('/login', Users.login)

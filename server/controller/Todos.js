@@ -13,7 +13,7 @@ class Todos {
                 res.status(200).json({ todos })
             }).catch((err) => {
                 // console.log(err, 'data err')
-                res.status(500).json({ message: `internal server error` })
+                res.status(500).json({ message: `internal server ${err}` })
             });
     }
 
@@ -29,7 +29,7 @@ class Todos {
                     })
                 }
             }).catch((err) => {
-                res.status(500).json({ message: `internal server error` })
+                res.status(500).json({ message: `internal server ${err}` })
             });
     }
 
@@ -44,10 +44,10 @@ class Todos {
             UserId: req.userdata.id
         })
             .then((todos) => {
-                console.log(todos, 'result from create')
+                // console.log(todos, 'result from create')
                 res.status(201).json({ todos })
             }).catch((err) => {
-                res.status(500).json({ message: `internal server error` })
+                res.status(500).json({ message: `internal server ${err}` })
             });
     }
 
@@ -66,24 +66,27 @@ class Todos {
                     res.status(404).json({ message: `todo not found` })
                 }
             }).then(() => {
-                res.status(200).json({ todoDeleted })
+                res.status(200).json({ message: `todo id: ${id} has been deleted`, todoDeleted })
             }).catch((err) => {
-                res.status(500).json({ message: `internal server error` })
+                res.status(500).json({ message: `internal server ${err}` })
             });
     }
-
 
     static updateTodo(req, res) {
         let id = req.params.id
         Todo.update(req.body, { where: { id: id } })
             .then((result) => {
-                if (result[0] === 1) {
-                    res.status(200).json('result has been update')
+                if (result) {
+                    res.status(200).json({
+                        message: `todo id: ${id} has been updated`
+                    })
                 } else {
-                    res.status(404).json('result not found')
+                    res.status(404).json({
+                        message: 'result not found'
+                    })
                 }
             }).catch((err) => {
-                res.status(500).json({ message: `internal server error` })
+                res.status(500).json({ message: `internal server ${err}` })
             });
     }
 }

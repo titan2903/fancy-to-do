@@ -1,21 +1,21 @@
 const router = require('express').Router()
 const Todos = require('../controller/Todos');
 const Authentication = require('../middlewares/Authentication');
-const Authorisation = require('../middlewares/Authorization');
+const Authorization = require('../middlewares/Authorization');
 
 //!show all todos
-router.get('/', Todos.getTodos)
+router.get('/show', Todos.getTodos)
 
 //!show one todo
-router.get('/:id', Todos.getOneTodo)
+router.get('/show/:id', [Authentication, Authorization], Todos.getOneTodo)
 
 //!add todo
-router.post('/', Authentication, Todos.createTodo)
+router.post('/create', Authentication, Todos.createTodo)
 
 //!delete todo
-router.delete('/:id', [Authentication, Authorisation], Todos.deleteTodo)
+router.delete('/delete/:id', [Authentication, Authorization], Todos.deleteTodo)
 
 //!edit todo
-router.put('/:id', [Authentication, Authorisation], Todos.updateTodo)
+router.put('/edit/:id', [Authentication, Authorization], Todos.updateTodo)
 
 module.exports = router

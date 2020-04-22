@@ -1,7 +1,7 @@
 // const jwt = require('jsonwebtoken')
 const { Todo } = require('../models');
 
-function authorisation(req, res, next) {
+function authorization(req, res, next) {
     const id = req.params.id
     Todo.findOne({ where: { id: id } })
         .then((result) => {
@@ -13,14 +13,16 @@ function authorisation(req, res, next) {
                 if (result.UserId === req.userdata.id) {
                     next()
                 } else {
-                    res.status(400).json('error in authorisation')
+                    res.status(400).json({
+                        message: 'error in authorization'
+                    })
                 }
             } else {
-                res.status(404).json('result not found')
+                res.status(404).json({ message: 'result not found' })
             }
         }).catch((err) => {
-            res.status(500).json('internal server error')
+            res.status(500).json({ message: `internal server ${err}` })
         });
 }
 
-module.exports = authorisation
+module.exports = authorization

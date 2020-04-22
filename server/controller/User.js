@@ -3,6 +3,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 class Users {
     static register(req, res, next) {
@@ -16,7 +17,7 @@ class Users {
                 res.status(201).json(user)
             }).catch((err) => {
                 res.status(500).json({
-                    message: `internal server error`
+                    message: `internal server ${err}`
                 })
             });
     }
@@ -45,7 +46,7 @@ class Users {
             }).catch((err) => {
                 console.log(`error login`)
                 res.status(500).json({
-                    message: `internal server error`
+                    message: `internal server ${err}`
                 })
             });
     }
@@ -89,7 +90,7 @@ class Users {
             })
             .catch((err) => {
                 res.status(500).json({
-                    message: 'error internal server'
+                    message: `internal server ${err}`
                 })
             });
     }
