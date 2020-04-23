@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags --> 
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id"
@@ -18,33 +18,138 @@
 <body>
 
     <!--! Register Form -->
-    <div>
+    <div id="register" class="container">
         <div>
-
+            <center>
+                <h2>Register Form</h2>
+            </center>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="email-reg">Email address</label>
+                    <input type="email" class="form-control" id="email-reg" placeholder="register your email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password-reg">Password</label>
+                    <input type="password" class="form-control" id="password-reg" placeholder="input your password">
+                    <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone
+                        else.</small>
+                </div>
+                <br>
+                <div align="center">
+                    <button type="submit" class="btn btn-outline-primary">Register</button> |
+                    <button type="button" class="btn btn-outline-warning" id="btn-login">Back To Login</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <!--! Login Form -->
-    <div>
+    <div id="login" class="container">
+        <center>
+            <h2>Login Form</h2>
+        </center>
         <div>
-
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email-login">Email address</label>
+                    <input type="email" class="form-control" id="email-login" placeholder="input your email">
+                </div>
+                <div class="form-group">
+                    <label for="password-login">Password</label>
+                    <input type="password" class="form-control" id="password-login" placeholder="input your password">
+                </div>
+                <div align="center">
+                    <button type="submit" class="btn btn-outline-primary">Login</button>
+                </div>
+                <div align="center">
+                    Please register if you have never been registered or SignIn using your Google account<br>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+            </form>
         </div>
     </div>
 
     <!-- TODO / Home -->
-    <div>
+    <div id="todos" class="container">
         <div>
+            <center>
+                <h2>ToDo List</h2>
+            </center>
+            <p id="usertodo"></p>
 
+            <!-- <button type="button" class="btn btn-primary" id="btn-add">Add Todo</button> -->
+            <div align="center">
+                <button type="button" onclick=addopen() class="btn btn-primary" data-toggle="modal"
+                    data-target="#modalAdd" data-backdrop="static" data-keyboard="false">
+                    Add Task
+                </button>
+                <button type="button" class="btn btn-danger" id="btn-logout">Logout</button>
+            </div>
+            <div id="weather"></div>
+            <div id="legend">
+                Legend :
+                <div style="background-color:lightcoral" id="sublegend">Task is not completed and late</div>
+                <div style="background-color:yellow" id="sublegend">Less than 2 days to complete the task</div>
+                <div style="background-color:lightgreen" id="sublegend">You still have time to complete the task</div>
+                <div style="background-color:cyan" id="sublegend">Task is completed, you can delete it</div>
+            </div>
+            <table class="table table-bordered mt-4" id="table-todos">
+                <thead class="p-3 mb-2 bg-secondary">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="list-todos">
+
+                </tbody>
+            </table>
         </div>
     </div>
 
     <!--! Create ToDo Form -->
     <!--! Use Bootstrap Modal -->
-    <div>
-        <div>
-
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddTitle">Add Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="errormodaladd"></div>
+                    <form id="add-form">
+                        <div class="form-group">
+                            <label for="title-add">Title</label>
+                            <input type="text" class="form-control" id="title-add"
+                                placeholder="input title of new todo">
+                        </div>
+                        <div class="form-group">
+                            <label for="description-add">Description</label>
+                            <input type="text" class="form-control" id="description-add"
+                                placeholder="input description of new todo">
+                        </div>
+                        <div class="form-group">
+                            <label for="due_date-add">Status</label>
+                            <input type="date" class="form-control" id="due_date-add"
+                                placeholder="input due_date of new todo">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
 
     <!--! Update ToDo Form -->
     <!--! Use Bootstrap Modal -->
@@ -59,13 +164,6 @@
     <div>
         <div>
 
-        </div>
-    </div>
-
-    <!--! Login By Gmail -->
-    <div class="container">
-        <div align="center">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </div>
 
