@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Sequelize = sequelize.Sequelize
   const Model = Sequelize.Model
 
-  class Todo extends Model { }
+  class Todo extends Model {}
 
   Todo.init({
     title: {
@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
       validate: {
         notEmpty: true
       }
@@ -37,15 +38,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: Sequelize.INTEGER,
-      validate: { notEmpty: true }
+      validate: {
+        notEmpty: true
+      }
     }
-  }, { sequelize })
+  }, {
+    sequelize
+  })
 
   // const Todo = sequelize.define('Todo', {
   // }, {});
   Todo.associate = function (models) {
     // associations can be defined here
-    Todo.belongsTo(models.User, { foreignKey: 'UserId' })
+    Todo.belongsTo(models.User, {
+      foreignKey: 'UserId'
+    })
   };
   return Todo;
 };

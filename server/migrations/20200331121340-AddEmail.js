@@ -2,7 +2,10 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Users', 'email', Sequelize.STRING);
+    return queryInterface.addColumn('Users', 'email', {
+      type: Sequelize.STRING,
+      unique: true
+    });
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.

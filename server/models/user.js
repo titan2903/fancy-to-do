@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Sequelize = sequelize.Sequelize
   const Model = Sequelize.Model
 
-  class User extends Model { }
+  class User extends Model {}
 
   User.init({
     email: {
@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    role: DataTypes.STRING,
+    role: {
+      type: DataTypes.STRING,
+      dafaultValue: 'client'
+    },
     email: {
       type: Sequelize.STRING,
       validate: {
@@ -33,14 +36,17 @@ module.exports = (sequelize, DataTypes) => {
         let hash = bcrypt.hashSync(instance.password, salt);
         instance.password = hash
       }
-    }, sequelize
+    },
+    sequelize
   })
 
   // const User = sequelize.define('User', {
   // }, {});
   User.associate = function (models) {
     // associations can be defined here
-    User.hasMany(models.Todo, { foreignKey: 'UserId' })
+    User.hasMany(models.Todo, {
+      foreignKey: 'UserId'
+    })
   };
   return User;
 };
